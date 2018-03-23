@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container">
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <!-- <h1>Profile</h1> -->
+      <!-- <p>Username: {{ user }}</p> -->
+      <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+      <p>Email: {{ user.email }}</p>
+      {% if user.description|length > 0 %}
+      <p>About: {{ user.description }}</p>
+      {% endif %}
+      {% if user.city|length > 0 %}
+      <p>City: {{ user.city }}</p>
+      {% endif %}
+      {% if user.website|length > 0 %}
+      <p>Website: {{ user.website }}</p>
+      {% endif %}
+      {% if user.phone|length > 0 %}
+      <p>Phone Number: {{ user.phone }}</p>
+      {% endif %}
+
+    {% if user.is_friend == 0 %}
+        <form action="/accounts/add_friend/" method="get">
+            <input type="text" name="id" value="{{ user.id }}" hidden="true">
+            <button type="submit" name="button">Add friend</button>
+        </form>
+    {% elif user.is_friend == 1 %}
+        <h4>Friend request not yet accepted</h4>
+    {% elif user.is_friend == 2 %}
+        <form action="/accounts/confirm_request/" method="get">
+            <input type="text" name="id" value="{{ user.id }}" hidden="true">
+            <button type="submit" name="button">Confirm request</button>
+        </form>
+    {% else %}
+        <h4>Friends since {{ user.since }}</h4>
+    {% endif %}
+
+
+    </div> <!-- /container -->
+    {% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container">
+      {% for user in args.users %}
+        <!-- {{ user.first_name }} {{ user.last_name }} <a text-decoration = "none" href="/accounts/public_profile/?id={{user.id}}"><button type="button" name="button">View Profile</button></a> <br /> -->
+        <form action="/accounts/public_profile" class="navbar-form " method="get">
+            <div class="input-group">
+                <!-- <input type="text" name="keyword" placeholder="search..." class="form-control"> -->
+                {{ user.first_name }} {{ user.last_name }}
+                <input type="text" name="id" value="{{ user.id }}" hidden="true">
+                <span style="margin-left: 10px" class="input-group-btn">
+                    <button type="submit" class="btn btn-default">Visit profile</button>
+                    <!-- <button class="btn btn-default">Go</button> -->
+                </span>
+            </div>
+        </form> <br />
+      {% endfor %}
+
+
+    </div>
+    {% endblock %}

@@ -1,0 +1,169 @@
+<!-- <html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block head %}
+        <title>Base</title>
+        {% endblock %}
+    </head>
+    <body>
+        <br/>
+        <div class="container">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/accounts/profile">friendsbook</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="#">About</a></li>
+              <li><a href="#">Contact</a></li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/accounts/register">Register</a></li>
+            </ul>
+
+          </div>
+        </div>
+      </nav>
+
+
+    </div>
+
+
+    <div class="container">
+        <h1>Welcome</h1>
+        <p>You can log in here!</p>
+        <h2>Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    	<title>friendsbook</title>
+    	<meta charset="UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    	<link rel="icon" type="image/png" href="../../static/accounts/login/images/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    	<link rel="stylesheet" type="text/css" href="../../static/accounts/login/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    	<link rel="stylesheet" type="text/css" href="../../static/accounts/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    	<link rel="stylesheet" type="text/css" href="../../static/accounts/login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    	<link rel="stylesheet" type="text/css" href="../../static/accounts/login/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    	<link rel="stylesheet" type="text/css" href="../../static/accounts/login/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    	<link rel="stylesheet" type="text/css" href="../../static/accounts/login/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    	<link rel="stylesheet" type="text/css" href="../../static/accounts/login/css/util.css">
+    	<link rel="stylesheet" type="text/css" href="../../static/accounts/login/css/main.css">
+    <!--===============================================================================================-->
+    </head>
+    <body>
+
+    	<div class="limiter">
+    		<div class="container-login100" style="background-image: url('../../static/accounts/login/images/logo.jpg');">
+    			<div class="wrap-login100 p-t-190 p-b-30">
+    				<!-- <form class="login100-form validate-form"> -->
+    					<div class="login100-form-avatar">
+    						<img src="../../static/accounts/login/images/avatar-02.jpg" alt="AVATAR">
+    					</div>
+
+    					<span class="login100-form-title p-t-20 p-b-45">
+    						friendsbook
+    					</span>
+
+                        <form action="/accounts/login/" method="post">
+                            {% csrf_token %}
+                            {% for field in form %}
+                                {% if field.id_for_label == 'id_username' %}
+                                    <div class="wrap-input100 validate-input m-b-10" data-validate = "Username is required">
+                                        <input id="id_username" class="input100" type="text" name="username" placeholder="Username" required>
+                                        <span class="focus-input100"></span>
+                                        <span class="symbol-input100">
+                                            <i class="fa fa-user"></i>
+                                        </span>
+                                    </div>
+                                {% else %}
+                                    <div class="wrap-input100 validate-input m-b-10" data-validate = "Password is required">
+                                        <input id="id_password" class="input100" type="password" name="password" placeholder="Password" required>
+                                        <span class="focus-input100"></span>
+                                        <span class="symbol-input100">
+                                            <i class="fa fa-lock"></i>
+                                        </span>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            <div class="container-login100-form-btn p-t-10">
+        						<button type="submit" class="login100-form-btn">
+        							Login
+        						</button>
+        					</div>
+                        </form>
+
+                        <!-- <form method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit">Login</button>
+                        </form> -->
+
+
+                        <!-- <form role="form" class="form-horizontal" method="post" action="/accounts/login">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {% for field in form %}
+                                    <div class="input-group">
+                                        <span class="input-group-addon" style="background-color:#b77b48; color:white"><span class="glyphicon glyphicon-user"></span></span>
+                                        <input class="form-control" id="{{ field.id_for_label }}" maxlength="30" name="{{ field.html_name }}" value="{{ field.value }}" type="text" />
+                                        {{ field.errors }}
+                                    </div>
+                                {% endfor %}
+                                <input type="submit" class="btn btn-primary" value="login" />
+                                <input type="hidden" name="next" value="{{ next }}" />
+                            </div>
+                        </form> -->
+
+    					<div class="text-center w-full">
+    						<a class="txt1" href="/accounts/register">
+    							Create new account
+    							<i class="fa fa-long-arrow-right"></i>
+    						</a>
+    					</div>
+    				<!-- </form> -->
+    			</div>
+    		</div>
+    	</div>
+
+
+
+
+    <!--===============================================================================================-->
+    	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    	<script src="vendor/bootstrap/js/popper.js"></script>
+    	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    	<script src="vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    	<script src="js/main.js"></script>
+
+    </body>
+</html>

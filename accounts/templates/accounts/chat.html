@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>{{ user }}</title>
+    <style>
+        #chat-box {
+            height: 300px;
+            width: 250px;
+            border: 2px solid black;
+            margin-bottom: 20px;
+        }
+        #chat-box-name {
+            border-bottom: 2px solid black;
+            /* border-width: 250px; */
+        }
+        .input-group {
+            width: 100%
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="col-sm-1" ></div>
+    <div class="col-sm-5">
+
+        {% for friend in friends %}
+            <form action="/accounts/chat_box" class="navbar-form " method="get">
+                <div class="input-group">
+                    <!-- <input type="text" name="keyword" placeholder="search..." class="form-control"> -->
+                    <!-- <h3>{{ friend.first_name }} {{ friend.last_name }}</h3> -->
+                    <input type="text" name="id" value="{{ friend.id }}" hidden="true">
+                    <input type="text" name="friend_name" value="{{ friend.first_name}}" hidden="true">
+                    <span style="margin-left: 10px" class="input-group-btn">
+                        <button type="submit" class="btn btn-default btn-lg btn-block">{{ friend.first_name }} {{ friend.last_name }}</button>
+                        <!-- <button class="btn btn-default">Go</button> -->
+                    </span>
+                </div>
+            </form> <br />
+            <!-- {{ friend.first_name }} {{ friend.last_name }}<button type="button" onclick="open_chat ({{ user.id }}, {{ friend.id }}, '{{ friend.first_name }}')" name="button">Chat now</button> <br /> -->
+        {% endfor %}
+        <!-- <div class="pull-right" id="chat-box" hidden = "true">
+            <h4 id="chat-box-name">FirstName</h4>
+            <input id = "message_send_text" type="text" name="message_to_send" placeholder="Enter message here" />
+            <button type="button" name="message_send_button" onclick="send_message ()">Send</button>
+        </div> -->
+    </div>
+
+{% endblock %}

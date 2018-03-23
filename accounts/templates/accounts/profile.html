@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>{{ user.first_name }}</title>
+    <style>
+        .input-group {
+            width: 100%
+        }
+        .horizontal-line-div {
+            width: 100%;
+            background-color: black;
+            height: 2px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class = "col-sm-1" > </div>
+<div class="col-sm-5">
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+      <p>Email: {{ user.email }}</p>
+      {% if args.user_profile.description|length > 0 %}
+        <p>About: {{ args.user_profile.description }}</p>
+      {% endif %}
+      {% if args.user_profile.city|length > 0 %}
+        <p>City: {{ args.user_profile.city }}</p>
+      {% endif %}
+      {% if args.user_profile.website|length > 5 %}
+        <p>Website: {{ args.user_profile.website }}</p>
+      {% endif %}
+      {% if args.user_profile.phone|length == 10 %}
+        <p>Phone: {{ args.user_profile.phone }}</p>
+      {% endif %}
+
+      <form action="/accounts/profile/edit" method="get">
+          <button class="btn btn-primary btn-lg btn-block" type="submit" name="button">
+            {% if args.user_profile.description|length > 0 or args.user_profile.city|length > 0 or args.user_profile.website|length or args.user_profile.phone|length == 10 %}
+              Edit personal information
+            {% else %}
+              Add personal information
+          {% endif %}</button>
+      </form>
+
+      <form action="/accounts/logout" method="get">
+          <button class="btn btn-danger btn-lg btn-block" type="submit" name="button">LogOut</button>
+      </form>
+
+    </div> <!-- /container -->
+    <div class = "col-sm-1" > </div>
+    <div class="col-sm-5">
+
+        <form action="/accounts/chat" method="get">
+            <div class="input-group">
+                <span style="margin-left: 10px" class="input-group-btn">
+                    <button class="btn btn-success btn-lg btn-block" type="submit">ChatNow</button>
+                    <!-- <button class="btn btn-default">Go</button> -->
+                </span>
+            </div>
+        </form> <br />
+
+        <h3 style="color: blue;">Friend Requests</h3>
+        {% for u in args.notifications.friend_requests %}
+            <form action="/accounts/public_profile" class="navbar-form " method="get">
+                <div class="input-group">
+                    <!-- <input type="text" name="keyword" placeholder="search..." class="form-control"> -->
+                    <h3>{{ u.first_name }} {{ u.last_name }}</h3>
+                    <input type="text" name="id" value="{{ u.user1_id }}" hidden="true">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary btn-lg">Visit profile</button>
+                        <!-- <button class="btn btn-default">Go</button> -->
+                    </span>
+                </div>
+            </form> <br />
+        {% endfor %}
+
+        <div class="horizontal-line-div"> </div>
+        <br />
+
+        <h3 style="color: red;">Pending friend requests</h3>
+        {% for u in args.notifications.pending_friend_requests %}
+            <form action="/accounts/public_profile" class="navbar-form " method="get">
+                <div class="input-group">
+                    <!-- <input type="text" name="keyword" placeholder="search..." class="form-control"> -->
+                    {{ u.first_name }} {{ u.last_name }}
+                    <input type="text" name="id" value="{{ u.user2_id }}" hidden="true">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary btn-lg">Visit profile</button>
+                        <!-- <button class="btn btn-default">Go</button> -->
+                    </span>
+                </div>
+            </form> <br />
+        {% endfor %}
+    </div>
+{% endblock %}
